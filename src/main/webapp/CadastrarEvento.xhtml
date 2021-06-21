@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<h:outputStylesheet library="css" name="styles.css" />
+	<title>managerEsig</title>
+</h:head>
+<h:body>
+	<div id="header" class="center">
+		<h:graphicImage id="logo" library="images" name="Logotipo.png" />
+	</div>
+	<div class="formulario center">
+		<h:form id="form">
+			<h:panelGrid>
+				<p:outputLabel value="Título:" />
+				<p:inputText value="#{eventoBean.evento.nome}" />
+
+				<p:outputLabel value="Descrição:" />
+				<p:inputText value="#{eventoBean.evento.organizacao}" />
+
+				<h:panelGroup hspace="center">
+					<p:selectOneMenu value="#{eventoBean.evento.local}">
+						<f:selectItem itemLabel="Responsável" itemValue="" />
+						<f:selectItem itemLabel="Maria" itemValue="Maria" />
+						<f:selectItem itemLabel="Cláudio" itemValue="Cláudio" />
+						<f:selectItem itemLabel="Joana" itemValue="Joana" />
+					</p:selectOneMenu>
+
+					<p:selectOneMenu value="#{eventoBean.evento.prioridade}">
+						<f:selectItem itemLabel="Prioridade" itemValue="" />
+						<f:selectItem itemLabel="Alta" itemValue="Alta" />
+						<f:selectItem itemLabel="Média" itemValue="Média" />
+						<f:selectItem itemLabel="Baixa" itemValue="Baixa" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+
+				<p:outputLabel value="Data:" />
+				<p:inputText value="#{eventoBean.evento.data}" type="date" />
+
+				<h:panelGroup styleClass="">
+					<p:commandButton id="btn-enviar" value="Cadastrar"
+						action="#{eventoBean.adicionarEvento}" update="form table" />
+				</h:panelGroup>
+
+			</h:panelGrid>
+
+		</h:form>
+	</div>
+
+	<h:panelGroup styleClass="center">
+		<p:dataTable value="#{eventoBean.eventos}" var="e" border="1"
+			id="table">
+			<p:column headerText="Nome">#{e.nome}</p:column>
+			<p:column headerText="Responsável">#{e.local}</p:column>
+			<p:column headerText="Data">#{e.data}</p:column>
+			<p:column headerText="Editar" width="60">
+				<p:button value="Editar" />
+			</p:column>
+			<p:column headerText="Excluir" width="60">
+				<p:button width="30" value="Excluir" outcome="/CadastrarEvento.xhtml?parametro=#{p.nome}" />
+			</p:column>
+			<p:column headerText="Concluir" width="60">
+				<p:button value="Concluir" />
+			</p:column>
+		</p:dataTable>
+	</h:panelGroup>
+</h:body>
+</html>
